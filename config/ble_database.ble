@@ -7,21 +7,22 @@ default: &default
 
 development:
   <<: *default
-  database: cl_gasco_granel_development
+  database: cl_gasco_monitoreo_development
   socket: /tmp/mysql.sock
   username: root
   password: kaosbite
 
 test:
   <<: *default
-  database: cl_gasco_granel_test
+  database: cl_gasco_monitoreo_test
   socket: /tmp/mysql.sock
   username: root
   password: kaosbite
 
 production:
   <<: *default
-  database: cl_gasco_granel_production
-  socket: /var/run/mysqld/mysqld.sock
+  database: cl_gasco_monitoreo_production
+  socket: /var/run/mysqld/mysql.sock
   username: root
   password: kaosbite
+
