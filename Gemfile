@@ -49,9 +49,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Custom by @kaosb
 gem 'savon', '~> 2.11.0'
-gem 'mysql2'
-# gem 'selenium-webdriver', '~> 2.53', '>= 2.53.4'
 gem 'nokogiri'
+gem 'mysql2'
 gem 'whenever', :require => false
 gem 'devise'
+# gem 'selenium-webdriver', '~> 2.53', '>= 2.53.4'
 gem 'will_paginate'
