@@ -9,6 +9,7 @@ class ReportsController < ApplicationController
 	end
 
 	def index
+		@cases = Array.new
 	end
-	
+
 end
