@@ -1,0 +1,26 @@
+<div class="login-box">
+	<div class="login-logo">
+		<a href="/"><b>GASCO</b> Monitoreo</a>
+	</div>
+	<div class="login-box-body">
+		<p class="login-box-msg">Autenticate para iniciar sesion</p>
+		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+			<div class="form-group has-feedback">
+				<%= f.email_field :email, autofocus: true, :class => 'form-control', :placeholder => "Email" %>
+				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<%= f.password_field :password, autocomplete: "off", :class => 'form-control', :placeholder => "Password"  %>
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			<div class="row">
+				<div class="col-xs-8">
+				</div>
+				<div class="col-xs-4">
+					<%= f.submit "Ingresar", :class => 'btn btn-primary btn-block btn-flat' %>
+				</div>
+			</div>
+		</form>
+		<% end %>
+	</div>
+</div>
