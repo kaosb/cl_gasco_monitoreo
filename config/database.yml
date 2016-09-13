@@ -15,7 +15,7 @@ development:
 test:
   <<: *default
   database: cl_gasco_monitoreo_test
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /tmp/mysql.sock
   username: root
   password: kaosbite
 

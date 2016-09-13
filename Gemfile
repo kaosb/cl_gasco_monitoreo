@@ -47,11 +47,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# Custom gems by @kaosb
 # Custom by @kaosb
+gem 'mysql2'
+gem 'devise'
 gem 'savon', '~> 2.11.0'
 gem 'nokogiri'
-gem 'mysql2'
 gem 'whenever', :require => false
-gem 'devise'
-# gem 'selenium-webdriver', '~> 2.53', '>= 2.53.4'
-gem 'will_paginate'
+# gem 'will_paginate'
