@@ -3,9 +3,9 @@ class Service < ApplicationRecord
 	has_many :actions
 
 	def self.check_all
-		services =  Service.all
+		services =  self.all
 		services.each do |service|
-			Service.check(service.id)
+			self.check(service.id)
 		end
 	end
 
