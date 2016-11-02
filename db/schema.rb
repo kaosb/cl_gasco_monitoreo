@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102040238) do
+ActiveRecord::Schema.define(version: 20161102041019) do
+
+  create_table "actions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
+    t.integer  "service_id",                                    null: false
+    t.string   "name"
+    t.string   "description"
+    t.text     "xml_body",         limit: 65535
+    t.text     "xml_spected_body", limit: 65535
+    t.string   "soap_action"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.boolean  "status",                         default: true
+  end
 
   create_table "services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
     t.string   "name"
