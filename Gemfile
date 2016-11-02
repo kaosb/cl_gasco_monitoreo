@@ -50,7 +50,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Custom gems by @kaosb
 # Custom by @kaosb
 gem 'mysql2'
-gem 'devise'
+gem "devise", :github => 'plataformatec/devise', :branch => 'master'
 gem 'nokogiri'
 gem 'whenever', :require => false
 gem 'chartkick'
