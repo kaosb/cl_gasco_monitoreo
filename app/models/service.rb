@@ -2,6 +2,13 @@ class Service < ApplicationRecord
 
 	has_many :actions
 
+	def self.check_all
+		services =  Service.all
+		services.each do |service|
+			Service.check(service.id)
+		end
+	end
+
 	def self.check(id)
 		service = self.find(id)
 		obj = Hash.new
