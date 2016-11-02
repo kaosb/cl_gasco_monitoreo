@@ -1,5 +1,9 @@
 class ServicesController < ApplicationController
 
+	def show
+		@service = Service.find(params[:service_id])
+	end
+
 	# Controlador responsable de ejecutar las tareas referidas a los servicios y su monitoreo.
 
 	# Bloque dedicado al servicio http://smtp.gasco.cl/WSGasco/WSRFCWeb/ConsultaServicio.asmx

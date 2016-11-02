@@ -1,0 +1,16 @@
+<div class="box">
+	<% if @service.present? %>
+	<div class="box-header with-border">
+		<h3 class="box-title"><%=@service.name%></h3>
+	</div>
+	<%@service.actions.each do |action|%>
+		<div class="box-body">
+			<div class="table-responsive">
+				<%= line_chart action.logs.group_by_hour(:created_at).count %>
+			</div>
+		</div>
+	<% end %>
+	<div class="box-footer">
+	</div>
+	<% end %>
+</div>
