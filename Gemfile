@@ -51,7 +51,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Custom by @kaosb
 gem 'mysql2'
 gem 'devise'
-gem 'savon', '~> 2.11.0'
 gem 'nokogiri'
 gem 'whenever', :require => false
 # gem 'will_paginate'
