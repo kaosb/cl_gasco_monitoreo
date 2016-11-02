@@ -1,5 +1,5 @@
-# set :output, "/path/to/my/cron_log.log"
+set :output, "/var/log/monitoreo_cron.log"
 
-every 1.hours do
+every 10.minutes do
   runner "Service.check_all"
 end
