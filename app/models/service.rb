@@ -29,8 +29,8 @@ class Service < ApplicationRecord
 					end
 				end
 			}
-			obj["#{action.name}"][:time] = time.real
 			obj["#{action.name}"] = temp
+			obj["#{action.name}"][:time] = time.real
 			log = Log.new
 			log.action_id = action.id
 			log.response_code = obj["#{action.name}"][:code]

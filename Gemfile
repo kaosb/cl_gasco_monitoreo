@@ -53,4 +53,7 @@ gem 'mysql2'
 gem 'devise'
 gem 'nokogiri'
 gem 'whenever', :require => false
+gem 'chartkick'
+gem 'groupdate', '~> 2.1.1'
+gem 'active_median', '~> 0.1.0'
 # gem 'will_paginate'
