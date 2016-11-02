@@ -4,7 +4,7 @@
 	<li><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 	<% @services = get_services %>
 	<% @services.each do |service| %>
-		<li><a href="services/show/<%=service.id%>"><i class="fa fa-files-o text-blue"></i><span><%=service.name%></span></a></li>
+		<li><a href="/services/show/<%=service.id%>"><i class="fa fa-files-o text-blue"></i><span><%=service.name%></span></a></li>
 	<% end %>
 	<!-- <li><a href="/case"><i class="fa fa-files-o"></i><span>Recursos</span></a></li>
 	<li><a href="/case?estadocolmena=ingresado"><i class="fa fa-circle-o text-purple"></i>Ingresados</a></li>
