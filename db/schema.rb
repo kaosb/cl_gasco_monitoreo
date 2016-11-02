@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20161102041403) do
     t.integer  "action_id",                   null: false
     t.integer  "response_code"
     t.text     "response_body", limit: 65535
+    t.float    "response_time", limit: 24
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end

@@ -141,4 +141,13 @@ class ServicesController < ApplicationController
 		render json: { status: true, time: time, response: response }, status: 200
 	end
 
+	def wsrfcweb_test
+		response = Array.new
+		services = Service.all
+		services.each do |service|
+			response << Service.check(service.id)
+		end
+		render json: { status: true, response: response }, status: 200
+	end
+
 end

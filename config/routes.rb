@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
 	get 'services/wsrfcweb_consultaservicio'
 	get 'services/wsrfcweb_consultaservicio_http'
+	get 'services/wsrfcweb_test'
 
 end
