@@ -4,7 +4,7 @@
 	</div>
 	<div class="box-body">
 			<%= pie_chart Log.group(:response_code).count %>
-			<%= line_chart @logs.group(:action_id).group_by_hour(:created_at).group_by_second(:response_time).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+			<%= line_chart @logs.group(:action_id).group_by_hour(:response_time).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
 	</div>
 	<div class="box-footer">
 	</div>
