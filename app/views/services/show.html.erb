@@ -6,6 +6,7 @@
 	<%@service.actions.each do |action|%>
 		<div class="box-body">
 			<h4 class="box-title"><%=action.name%></h4>
+			<%= pie_chart action.logs.group(:response_code).count %>
 			<%= line_chart action.logs.group_by_hour(:created_at).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
 		</div>
 	<% end %>
