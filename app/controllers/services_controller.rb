@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
 
 	def dashboard
 		
-		@logs = Log.where()
+		@logs = Log.all
 	end
 
 end
