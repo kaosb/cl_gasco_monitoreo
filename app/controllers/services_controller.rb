@@ -5,8 +5,8 @@ class ServicesController < ApplicationController
 	end
 
 	def dashboard
-		
-		@logs = Log.all
+		date = DateTime.now
+		@logs = Log.where(created_at: date.beginning_of_day..date.end_of_day)
 	end
 
 end
