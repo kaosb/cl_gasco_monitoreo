@@ -41,7 +41,11 @@ class Service < ApplicationRecord
 			log = Log.new
 			log.action_id = action.id
 			log.response_code = obj["#{action.name}"][:code]
-			log.response_body = obj["#{action.name}"][:body]
+			if action.id != 43
+				log.response_body = obj["#{action.name}"][:body]
+			else
+				log.response_body = "Respuesta muy larga para aser almacenada."
+			end
 			log.response_time = obj["#{action.name}"][:time]
 			log.save
 		end
