@@ -32,8 +32,10 @@ class Service < ApplicationRecord
 						temp = { code: response.code, body: "Respuesta satisfactoria." }
 					when Net::HTTPClientError
 						temp = { code: response.code, body: "Error en el cliente." }
+						self.notify(action, response)
 					when Net::HTTPInternalServerError
 						temp = { code: response.code, body: "Error en el servidor." }
+						self.notify(action, response)
 					end
 				end
 			}
@@ -46,6 +48,29 @@ class Service < ApplicationRecord
 			log.response_time = obj["#{action.name}"][:time]
 			log.save
 		end
+	end
+
+	def self.notify(action, response)
+
+	end
+
+	def self.send_email(subject, to, text, html)
+		require 'mandrill'  
+		m = Mandrill::API.new '3ZLSPcwFdDDqTCZuWqBIbw'
+		message = {
+			:subject => subject,
+			:from_name => 'Colmena crawler',
+			:from_email => 'no-reply@rlabs.cl',
+			:to => to,
+			:text => text,
+			:html => html,
+			:headers => { "Reply-To" => "soporte@rlabs.cl" }
+		}
+		sending = m.messages.send message  
+		return sending
+	end
+
+	def self.send_push
 	end
 
 end
