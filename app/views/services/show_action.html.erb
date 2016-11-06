@@ -3,7 +3,7 @@
 		<h3 class="box-title"><%=@action.name%></h3>
 	</div>
 	<div class="box-body">
-		<%= line_chart @log.group_by_hour(:created_at).group(:response_time).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+		<%= line_chart @log.group_by_hour(:created_at).maximum(:response_time), {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
 	</div>
 	<div class="box-footer">
 	</div>
