@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 	root to: "services#dashboard"
 	
 	scope '/services' do
-		get '/show/:service_id' => 'services#show'
+		get '/:service_id' => 'services#show'
+		get '/action/:action_id' => 'services#show_action'
 	end
 
 end

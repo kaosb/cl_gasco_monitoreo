@@ -7,7 +7,7 @@
 		<div class="box-body">
 			<h4 class="box-title"><%=action.name%></h4>
 			<%= pie_chart action.logs.group(:response_code).count %>
-			<%= line_chart action.logs.group_by_hour(:created_at).group(:response_time).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+			<%#= line_chart action.logs.group_by_hour(:created_at).group(:response_time).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
 		</div>
 	<% end %>
 	<div class="box-footer">

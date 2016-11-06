@@ -1,11 +1,21 @@
 <aside class="main-sidebar">
-<section class="sidebar">
-<ul class="sidebar-menu">
-	<li><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-	<% @services = get_services %>
-	<% @services.each do |service| %>
-		<li><a href="/services/show/<%=service.id%>"><i class="fa fa-files-o text-blue"></i><span><%=service.name%></span></a></li>
-	<% end %>
-</ul>
-</section>
+	<section class="sidebar">
+		<ul class="sidebar-menu">
+			<li><a href="/"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+			<% @services = get_services %>
+			<% @services.each do |service| %>
+				<li>
+					<a href="/services/<%=service.id%>">
+						<i class="fa fa-files-o text-blue"></i>
+						<span><%=service.name%></span>
+					</a>
+					<ul>
+					<% service.actions.each do |action| %>
+						<li><a href="/services/action/<%=action.id%>"><i class="fa fa-files-o text-blue"></i>&nbsp;&nbsp;<span style="font-size:10px;"><%=action.name%></span></a></li>
+					<% end %>
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+	</section>
 </aside>
