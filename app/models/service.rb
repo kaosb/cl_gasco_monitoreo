@@ -30,6 +30,7 @@ class Service < ApplicationRecord
 					when Net::HTTPOK
 						# temp = { code: response.code, body: response.body }
 						temp = { code: response.code, body: "Respuesta satisfactoria." }
+						self.notify(action, response)
 					when Net::HTTPClientError
 						temp = { code: response.code, body: "Error en el cliente." }
 						self.notify(action, response)
@@ -51,20 +52,26 @@ class Service < ApplicationRecord
 	end
 
 	def self.notify(action, response)
-
+		destinatarios = [
+			{
+				:name => 'Felipe I. González G.',
+				:email => 'felipe@coddea.com'
+			}
+		]
+		self.send_email("prueba", destinatarios, 'Texto prueba', '<h1>Hola mundo<h1>')
 	end
 
 	def self.send_email(subject, to, text, html)
 		require 'mandrill'  
-		m = Mandrill::API.new '3ZLSPcwFdDDqTCZuWqBIbw'
+		m = Mandrill::API.new 'oaZlASbjNEKovpXAwoAEfg'
 		message = {
 			:subject => subject,
-			:from_name => 'Colmena crawler',
-			:from_email => 'no-reply@rlabs.cl',
+			:from_name => 'Gasco watcher',
+			:from_email => 'no-reply@coddea.com',
 			:to => to,
 			:text => text,
 			:html => html,
-			:headers => { "Reply-To" => "soporte@rlabs.cl" }
+			:headers => { "Reply-To" => "soporte@coddea.com" }
 		}
 		sending = m.messages.send message  
 		return sending
