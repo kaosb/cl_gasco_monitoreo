@@ -28,7 +28,8 @@ class Service < ApplicationRecord
 				else
 					case response
 					when Net::HTTPOK
-						temp = { code: response.code, body: response.body }
+						# temp = { code: response.code, body: response.body }
+						temp = { code: response.code, body: "Respuesta satisfactoria." }
 					when Net::HTTPClientError
 						temp = { code: response.code, body: "Error en el cliente." }
 					when Net::HTTPInternalServerError
@@ -41,11 +42,7 @@ class Service < ApplicationRecord
 			log = Log.new
 			log.action_id = action.id
 			log.response_code = obj["#{action.name}"][:code]
-			if action.id != 43
-				log.response_body = obj["#{action.name}"][:body]
-			else
-				log.response_body = "Respuesta muy larga para aser almacenada."
-			end
+			log.response_body = obj["#{action.name}"][:body]
 			log.response_time = obj["#{action.name}"][:time]
 			log.save
 		end
