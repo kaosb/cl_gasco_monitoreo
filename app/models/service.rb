@@ -58,7 +58,29 @@ class Service < ApplicationRecord
 				:email => 'felipe@coddea.com'
 			}
 		]
-		self.send_email("prueba", destinatarios, 'Texto prueba', '<h1>Hola mundo<h1>')
+		body = "
+		<html>
+		<head></head>
+			<body>
+				<div>
+					<p>Se presento un problema al corroborar la operacion del metodo <strong>#{action.name}</strong> correspondiente al servicio <strong>#{action.service.name}</strong>.</p>
+				</div>
+				<br/>
+				<br/>
+				<div>
+					<h3>El cuerpo del mensaje enviado es:</h3>
+					<pre>#{action.body}</pre>
+				</div>
+				<br/>
+				<br/>
+				<div>
+					<h3>El servicio respondio:</h3>
+					<pre>#{action.body}</pre>
+				</div>
+			</body>
+		</html>
+		"
+		self.send_email("Alerta monitoreo", destinatarios, 'Para ver el correo de modo correcto es necesario verlo como HTML.', body)
 	end
 
 	def self.send_email(subject, to, text, html)
