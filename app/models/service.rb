@@ -30,16 +30,17 @@ class Service < ApplicationRecord
 					when Net::HTTPOK
 						# temp = { code: response.code, body: response.body }
 						temp = { code: response.code, body: "Respuesta satisfactoria." }
-						self.notify(action, response)
+						# self.notify(action, response)
 					when Net::HTTPClientError
 						temp = { code: response.code, body: "Error en el cliente." }
-						self.notify(action, response)
+						# self.notify(action, response)
 					when Net::HTTPInternalServerError
 						temp = { code: response.code, body: "Error en el servidor." }
-						self.notify(action, response)
+						# self.notify(action, response)
 					end
 				end
 			}
+			self.notify(action)
 			obj["#{action.name}"] = temp
 			obj["#{action.name}"][:time] = time.real
 			log = Log.new
@@ -51,7 +52,7 @@ class Service < ApplicationRecord
 		end
 	end
 
-	def self.notify(action, response)
+	def self.notify(action)
 		destinatarios = [
 			{
 				:name => 'Felipe I. González G.',
