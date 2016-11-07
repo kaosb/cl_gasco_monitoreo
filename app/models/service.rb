@@ -58,6 +58,10 @@ class Service < ApplicationRecord
 			{
 				:name => 'Felipe I. González G.',
 				:email => 'felipe@coddea.com'
+			},
+			{
+				:name => 'Patricio Vasquez',
+				:email => 'pvasquez@gasco.cl'
 			}
 		]
 		body = "
