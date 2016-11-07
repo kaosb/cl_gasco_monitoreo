@@ -15,4 +15,10 @@ class ServicesController < ApplicationController
 		@logs = Log.where(created_at: date.beginning_of_day..date.end_of_day)
 	end
 
+	def testmsj
+		action = Action.find(5)
+		response = Service.notify(action)
+		render :json => { :status => true, :response => response }, :status => 200
+	end
+
 end

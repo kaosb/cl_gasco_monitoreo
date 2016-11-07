@@ -53,6 +53,7 @@ class Service < ApplicationRecord
 	end
 
 	def self.notify(action)
+		service = self.find(action.service_id)
 		destinatarios = [
 			{
 				:name => 'Felipe I. González G.',
@@ -64,19 +65,10 @@ class Service < ApplicationRecord
 		<head></head>
 			<body>
 				<div>
-					<p>Se presento un problema al corroborar la operacion del metodo <strong>#{action.name}</strong> correspondiente al servicio <strong>#{action.service.name}</strong>.</p>
+					<p>Se presento un problema al corroborar la operacion del metodo <strong>#{action.name}</strong> correspondiente al servicio <strong>#{service.name}</strong>.</p>
 				</div>
-				<br/>
-				<br/>
 				<div>
-					<h3>El cuerpo del mensaje enviado es:</h3>
-					<pre>#{action.body}</pre>
-				</div>
-				<br/>
-				<br/>
-				<div>
-					<h3>El servicio respondio:</h3>
-					<pre>#{action.body}</pre>
+					<p>por favor verificar y/o notificar a quien corresponda.</p>
 				</div>
 			</body>
 		</html>

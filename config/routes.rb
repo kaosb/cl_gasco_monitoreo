@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 		get '/action/:action_id' => 'services#show_action'
 	end
 
+	get 'test/msj' => 'services#testmsj'
+
 end
