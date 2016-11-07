@@ -30,19 +30,19 @@ class Service < ApplicationRecord
 					when Net::HTTPOK
 						# temp = { code: response.code, body: response.body }
 						temp = { code: response.code, body: "Respuesta satisfactoria." }
-						# self.notify(action, response)
 					when Net::HTTPClientError
 						temp = { code: response.code, body: "Error en el cliente." }
-						# self.notify(action, response)
 					when Net::HTTPInternalServerError
 						temp = { code: response.code, body: "Error en el servidor." }
-						# self.notify(action, response)
 					end
 				end
 			}
-			self.notify(action)
 			obj["#{action.name}"] = temp
 			obj["#{action.name}"][:time] = time.real
+			# Notificamos a los usuarios.
+			if obj["#{action.name}"][:code].to_i > 200
+				self.notify(action)
+			end
 			log = Log.new
 			log.action_id = action.id
 			log.response_code = obj["#{action.name}"][:code]
