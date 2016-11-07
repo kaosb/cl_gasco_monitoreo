@@ -20,6 +20,7 @@ class Service < ApplicationRecord
 			http.use_ssl = false
 			obj["#{action.name}"] = Hash.new
 			temp = Hash.new
+			response = ""
 			time = Benchmark.measure {
 				begin
 					response = http.post(service.wsdl.gsub("http://smtp.gasco.cl", "").gsub("?wsdl", ""), action.xml_body, { 'Content-Type' => 'text/xml; charset=utf-8', 'SOAPAction' => action.soap_action })
@@ -41,7 +42,7 @@ class Service < ApplicationRecord
 			obj["#{action.name}"][:time] = time.real
 			# Notificamos a los usuarios.
 			if obj["#{action.name}"][:code].to_i > 200
-				self.notify(action)
+				self.notify(action, response)
 			end
 			log = Log.new
 			log.action_id = action.id
@@ -52,7 +53,7 @@ class Service < ApplicationRecord
 		end
 	end
 
-	def self.notify(action)
+	def self.notify(action, response)
 		service = self.find(action.service_id)
 		destinatarios = [
 			{
@@ -73,6 +74,13 @@ class Service < ApplicationRecord
 				</div>
 				<div>
 					<p>por favor verificar y/o notificar a quien corresponda.</p>
+				</div>
+				<div>
+					<h3>El cuerpo del mensaje enviado fue:</h3>
+					<pre><code><![CDATA[
+					#{response.body}
+					]]>
+					</code></pre>
 				</div>
 			</body>
 		</html>
