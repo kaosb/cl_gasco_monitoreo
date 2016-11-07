@@ -76,7 +76,7 @@ class Service < ApplicationRecord
 					<p>por favor verificar y/o notificar a quien corresponda.</p>
 				</div>
 				<div>
-					<h3>El cuerpo del mensaje enviado fue:</h3>
+					<h3>El mensaje recibido desde el servicio fue:</h3>
 					<pre><code><![CDATA[
 					#{response.body}
 					]]>
