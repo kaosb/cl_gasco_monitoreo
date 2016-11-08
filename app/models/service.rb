@@ -12,7 +12,7 @@ class Service < ApplicationRecord
 	def self.check(id)
 		service = self.find(id)
 		obj = Hash.new
-		service.actions.each do |action|
+		service.actions.where(status: true).each do |action|
 			require 'net/http'
 			require 'benchmark'
 			# Cliente HTTP
