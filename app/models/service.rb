@@ -50,6 +50,7 @@ class Service < ApplicationRecord
 			log.response_body = obj["#{action.name}"][:body]
 			log.response_time = obj["#{action.name}"][:time]
 			log.save
+			http.finish
 		end
 	end
 
