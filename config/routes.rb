@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 		get '/action/:action_id' => 'services#show_action'
 	end
 
+	scope '/alert' do
+		get '/index' => 'alert#index'
+	end
+
 	get 'test/msj' => 'services#testmsj'
 
 end
