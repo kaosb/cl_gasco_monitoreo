@@ -63,16 +63,14 @@ class Service < ApplicationRecord
 
 	def self.notify(action, response)
 		service = self.find(action.service_id)
-		destinatarios = [
-			{
-				:name => 'Felipe I. González G.',
-				:email => 'felipe@coddea.com'
-			},
-			{
-				:name => 'Patricio Vasquez',
-				:email => 'pvasquez@gasco.cl'
+		receivers = AlertReceiver.where(status: true)
+		destinatarios = Array.new
+		receivers.each do |receiver|
+			destinatarios << {
+				:name => receiver.name,
+				:email => receiver.email
 			}
-		]
+		end
 		body = "
 		<html>
 		<head></head>
