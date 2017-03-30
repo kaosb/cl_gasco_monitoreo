@@ -1,7 +1,7 @@
 class AlertController < ApplicationController
 
 	def index
-		@receivers = AlertReceivers.all
+		@receivers = AlertReceiver.all
 	end
 
 end
