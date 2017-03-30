@@ -21,4 +21,14 @@ class ServicesController < ApplicationController
 		render :json => { :status => true, :response => response }, :status => 200
 	end
 
+	def testaction
+		response = Service.check(params[:id])
+		render :json => { :status => true, :response => response }, :status => 200
+	end
+
+	def testall
+		response = Service.check_all()
+		render :json => { :status => true, :response => response }, :status => 200
+	end	
+
 end

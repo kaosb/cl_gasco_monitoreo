@@ -14,5 +14,7 @@ Rails.application.routes.draw do
 	end
 
 	get 'test/msj' => 'services#testmsj'
+	get 'test/action/:id' => 'services#testaction'
+	get 'test/all' => 'services#testall'
 
 end
