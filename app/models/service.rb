@@ -16,7 +16,13 @@ class Service < ApplicationRecord
 			require 'net/http'
 			require 'benchmark'
 			# Cliente HTTP
-			http = Net::HTTP.new('smtp.gasco.cl', 80)
+			if service.id == 9
+				# Parche para WS con URI diferente al resto.
+				http = Net::HTTP.new('webservices.gasco.cl', 80)
+				# Se incorporo un gsub en la linea 32 para el mismo fin.
+			else
+				http = Net::HTTP.new('smtp.gasco.cl', 80)
+			end
 			http.use_ssl = false
 			obj["#{action.name}"] = Hash.new
 			temp = Hash.new
@@ -78,11 +84,27 @@ class Service < ApplicationRecord
 					<p>por favor verificar y/o notificar a quien corresponda.</p>
 				</div>
 				<div>
-					<h3>El mensaje recibido desde el servicio fue:</h3>
-					<pre><code><![CDATA[
-					#{response.body}
-					]]>
-					</code></pre>
+					<h3>La respuesta recibida desde el servicio fue:</h3>
+					<p>
+					<code>
+					#{response['Set-Cookie']}
+					<br/>
+					#{response.get_fields('set-cookie')}
+					<br/>
+					#{response.to_hash['set-cookie']}
+					<br/>
+					Headers: #{response.to_hash.inspect}
+					<br/>
+					Status:
+					<br/>
+					code: #{response.code}
+					<br/>
+					message: #{response.message}
+					name: #{response.class.name}
+					Body:
+					#{response.body.force_encoding("UTF-8")}
+					</code>
+					</p>
 				</div>
 			</body>
 		</html>
@@ -98,7 +120,7 @@ class Service < ApplicationRecord
 			:from_name => 'Gasco watcher',
 			:from_email => 'no-reply@coddea.com',
 			:to => to,
-			:text => text,
+			:text => text.force_encoding("UTF-8"),
 			:html => html,
 			:headers => { "Reply-To" => "soporte@coddea.com" }
 		}
