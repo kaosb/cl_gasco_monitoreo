@@ -17,4 +17,7 @@ Rails.application.routes.draw do
 	get 'test/service/:id' => 'services#testservice'
 	get 'test/all' => 'services#testall'
 
+	# AJAX
+	post 'add_alert_receiver' => 'alert#add_alert_receiver'
+
 end

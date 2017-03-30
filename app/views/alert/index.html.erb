@@ -4,30 +4,28 @@
 		<h3 class="box-title">Crear nuevo receptor</h3>
 	</div>
 	<div class="box-body">
-		<form role="form">
-			<div class="box-body">
-				<div class="form-group">
-					<label for="InputEmail">Email</label>
-					<input type="email" class="form-control" id="InputEmail" name="email" placeholder="Agrgar email">
-				</div>
-				<div class="form-group">
-					<label for="InputName">Nombre</label>
-					<input type="text" class="form-control" id="InputName" name="name" placeholder="Agegar nombre">
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" checked="checked"> Alertas por email
-					</label>
-<!-- 					<br/>
-					<label>
-						<input type="checkbox"> Check me out
-					</label> -->
-				</div>
+		<div class="box-body">
+			<div class="form-group">
+				<label for="InputEmail">Email</label>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Agrgar email">
 			</div>
-			<div class="box-footer">
-				<button type="submit" name="submit" class="btn btn-primary">Agregar</button>
+			<div class="form-group">
+				<label for="InputName">Nombre</label>
+				<input type="text" class="form-control" id="name" name="name" placeholder="Agegar nombre">
 			</div>
-		</form>
+			<div class="checkbox">
+				<label>
+					<input name="alert" value="email" type="checkbox" checked="checked"> Alertas por email
+				</label>
+			<!--<br/>
+				<label>
+					<input name="alert" value="push" type="checkbox" checked="checked"> Alertas push
+				</label> -->
+			</div>
+		</div>
+		<div class="box-footer">
+			<button id="agregar" type="submit" name="submit" class="btn btn-primary">Agregar</button>
+		</div>
 	</div>
 	<div class="box-footer">
 	</div>
@@ -40,14 +38,14 @@
 	<div class="box-body">
 		<table class="table table-bordered">
 			<tbody><tr>
-				<th style="width: 10px"></th>
+				<th style="width: 10px">ID</th>
 				<th>Correo electronico</th>
 				<th>Nombe</th>
 				<th style="width: 40px">Plataformas</th>
 			</tr>
 			<% @receivers.each do |receiver| %>
 			<tr>
-				<td></td>
+				<td><%=receiver.id%></td>
 				<td><%=receiver.email%></td>
 				<td><%=receiver.name%></td>
 				<td style="text-align: center;">
@@ -59,7 +57,7 @@
 		</tbody></table>
 	</div>
 	<div class="box-footer clearfix">
-<!-- 		<ul class="pagination pagination-sm no-margin pull-right">
+<!-- 	<ul class="pagination pagination-sm no-margin pull-right">
 			<li><a href="#">«</a></li>
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
@@ -68,3 +66,34 @@
 		</ul> -->
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#agregar').on('click', function(event){
+			// Prevengo e comportamiento por defecto del submit.
+			event.preventDefault();
+			// Verifico la presencia de los datos.
+			if( $("input[name='name']").val() && $("input[name='email']").val() && $("input[name='alert']").val() ){
+				// Obtengo los valores de los campos.
+				var name = $("input[name='name']").val();
+				var email = $("input[name='email']").val();
+				var alert = $("input[name='alert']").val();
+				var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+				// Llamo al endpoint.
+				$.ajax({
+					url: "/add_alert_receiver" + "?authenticity_token=" + AUTH_TOKEN,
+					method: "POST",
+					data: { name : name, email : email },
+					dataType: "json",
+					success: function(result){
+						window.alert("El receptor se creo de forma exitosa.");
+						location.reload();
+					}
+				});
+				
+				// Despliego el resultado
+			}else{
+				window.alert("Para agregar un nuevo receptor es necesario proporcionar todos los datos solicitados.");
+			}
+		});
+	});
+</script>
