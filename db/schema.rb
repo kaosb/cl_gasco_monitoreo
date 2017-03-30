@@ -25,8 +25,13 @@ ActiveRecord::Schema.define(version: 20170221125721) do
   end
 
   create_table "alert_receivers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.string   "email",                           null: false
+    t.boolean  "platform_email",  default: true
+    t.boolean  "platform_mobile", default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "status",          default: true
   end
 
   create_table "logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|

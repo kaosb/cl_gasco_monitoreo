@@ -59,11 +59,7 @@ class Service < ApplicationRecord
 		end
 	end
 
-	# ,
-	# 		{
-	# 			:name => 'Patricio Vasquez',
-	# 			:email => 'pvasquez@gasco.cl'
-	# 		}
+
 
 	def self.notify(action, response)
 		service = self.find(action.service_id)
@@ -71,6 +67,10 @@ class Service < ApplicationRecord
 			{
 				:name => 'Felipe I. González G.',
 				:email => 'felipe@coddea.com'
+			},
+			{
+				:name => 'Patricio Vasquez',
+				:email => 'pvasquez@gasco.cl'
 			}
 		]
 		body = "
