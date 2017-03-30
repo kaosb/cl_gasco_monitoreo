@@ -7,27 +7,25 @@
 		<form role="form">
 			<div class="box-body">
 				<div class="form-group">
-					<label for="exampleInputEmail1">Email address</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					<label for="InputEmail">Email</label>
+					<input type="email" class="form-control" id="InputEmail" name="email" placeholder="Agrgar email">
 				</div>
 				<div class="form-group">
-					<label for="exampleInputPassword1">Password</label>
-					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputFile">File input</label>
-					<input type="file" id="exampleInputFile">
-
-					<p class="help-block">Example block-level help text here.</p>
+					<label for="InputName">Nombre</label>
+					<input type="text" class="form-control" id="InputName" name="name" placeholder="Agegar nombre">
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Check me out
+						<input type="checkbox" checked="checked"> Alertas por email
 					</label>
+<!-- 					<br/>
+					<label>
+						<input type="checkbox"> Check me out
+					</label> -->
 				</div>
 			</div>
 			<div class="box-footer">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" name="submit" class="btn btn-primary">Agregar</button>
 			</div>
 		</form>
 	</div>
@@ -47,40 +45,26 @@
 				<th>Nombe</th>
 				<th style="width: 40px">Plataformas</th>
 			</tr>
+			<% @receivers.each do |receiver| %>
 			<tr>
 				<td></td>
-				<td>jperez@ble.cl</td>
-				<td>Juan Perez</td>
-				<td><span class="badge bg-red">55%</span></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>fpija@gmail.com</td>
-				<td>Fel pija</td>
-				<td><span class="badge bg-yellow">70%</span></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>plgrande@ñ.cl</td>
-				<td>Pedro el grande</td>
-				<td><span class="badge bg-light-blue">30%</span></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>Juan pablo escalopa</td>
-				<td>jpe@jp.cl
+				<td><%=receiver.email%></td>
+				<td><%=receiver.name%></td>
+				<td style="text-align: center;">
+					<% if receiver.platform_email %><i class="glyphicon glyphicon-envelope"></i><% end %>
+					<% if receiver.platform_mobile %><i class="glyphicon glyphicon-phone"></i><% end %>
 				</td>
-				<td><span class="badge bg-green">90%</span></td>
 			</tr>
+			<% end %>
 		</tbody></table>
 	</div>
 	<div class="box-footer clearfix">
-		<ul class="pagination pagination-sm no-margin pull-right">
+<!-- 		<ul class="pagination pagination-sm no-margin pull-right">
 			<li><a href="#">«</a></li>
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
 			<li><a href="#">»</a></li>
-		</ul>
+		</ul> -->
 	</div>
 </div>
