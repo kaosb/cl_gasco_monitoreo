@@ -23,7 +23,7 @@ class Service < ApplicationRecord
 			response = ""
 			time = Benchmark.measure {
 				begin
-					response = http.post(service.wsdl.gsub("http://smtp.gasco.cl", "").gsub("?wsdl", ""), action.xml_body, { 'Content-Type' => 'text/xml; charset=utf-8', 'SOAPAction' => action.soap_action })
+					response = http.post(service.wsdl.gsub("http://smtp.gasco.cl", "").gsub("http://webservices.gasco.cl", "").gsub("?wsdl", ""), action.xml_body, { 'Content-Type' => 'text/xml; charset=utf-8', 'SOAPAction' => action.soap_action })
 				rescue Timeout::Error => e
 					temp = { code: response.code, body: e.message }
 				else
