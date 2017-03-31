@@ -59,8 +59,6 @@ class Service < ApplicationRecord
 		end
 	end
 
-
-
 	def self.notify(action, response)
 		service = self.find(action.service_id)
 		receivers = AlertReceiver.where(status: true)
@@ -82,8 +80,8 @@ class Service < ApplicationRecord
 					<p>por favor verificar y/o notificar a quien corresponda.</p>
 				</div>
 				<div>
-					<h3>La respuesta recibida desde el servicio fue:</h3>
 					<p>
+					<h3>La respuesta recibida desde el servicio fue:</h3>
 					<code>
 					#{response['Set-Cookie']}
 					<br/>
