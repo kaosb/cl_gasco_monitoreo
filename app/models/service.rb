@@ -80,8 +80,8 @@ class Service < ApplicationRecord
 					<p>por favor verificar y/o notificar a quien corresponda.</p>
 				</div>
 				<div>
-					<p>
 					<h3>La respuesta recibida desde el servicio fue:</h3>
+					<p>
 					<code>
 					#{response['Set-Cookie']}
 					<br/>
@@ -99,6 +99,12 @@ class Service < ApplicationRecord
 					name: #{response.class.name}
 					Body:
 					#{response.body.force_encoding("UTF-8")}
+					</code>
+					</p>
+					<h3>El mensaje enviado al servicio fue:</h3>
+					<p>
+					<code>
+					#{action.xml_body}
 					</code>
 					</p>
 				</div>
