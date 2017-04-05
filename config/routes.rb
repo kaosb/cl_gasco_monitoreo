@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 	end
 
 	scope '/receiver' do
-		get '/edit/:id' => 'alert#edit_alert_receiver'
+		get '/edit/:id' => 'alert#edit'
 	end
 
 	get 'test/msj' => 'services#testmsj'

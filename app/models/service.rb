@@ -83,6 +83,7 @@ class Service < ApplicationRecord
 				<div>
 					<h3>La respuesta recibida desde el servicio fue:</h3>
 					<p>
+					<code>
 					<pre>
 					#{response['Set-Cookie']}
 					<br/>
@@ -101,12 +102,15 @@ class Service < ApplicationRecord
 					Body:
 					#{response.body.force_encoding("UTF-8")}
 					</pre>
+					</code>
 					</p>
 					<h3>El mensaje enviado al servicio fue:</h3>
 					<p>
+					<code>
 					<pre>
 					#{action.xml_body.force_encoding("UTF-8")}
 					</pre>
+					</code>
 					</p>
 				</div>
 			</body>
