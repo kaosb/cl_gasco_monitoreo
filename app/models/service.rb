@@ -104,7 +104,7 @@ class Service < ApplicationRecord
 					<h3>El mensaje enviado al servicio fue:</h3>
 					<p>
 					<code>
-					#{action.xml_body}
+					#{action.xml_body.force_encoding("UTF-8")}
 					</code>
 					</p>
 				</div>

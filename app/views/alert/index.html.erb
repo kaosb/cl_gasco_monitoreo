@@ -42,6 +42,7 @@
 				<th>Correo electronico</th>
 				<th>Nombe</th>
 				<th style="width: 40px">Plataformas</th>
+				<th style="text-align: center;">Editar / Eliminar</th>
 			</tr>
 			<% @receivers.each do |receiver| %>
 			<tr>
@@ -52,6 +53,7 @@
 					<% if receiver.platform_email %><i class="glyphicon glyphicon-envelope"></i><% end %>
 					<% if receiver.platform_mobile %><i class="glyphicon glyphicon-phone"></i><% end %>
 				</td>
+				<td style="text-align: center;"><i class="fa fa-fw fa-pencil receiver-edit" style="cursor: pointer;" receiver_id="<%=receiver.id%>"></i> / <i class="fa fa-fw fa-trash receiver-delete" style="cursor: pointer;" receiver_id="<%=receiver.id%>"></i></td>
 			</tr>
 			<% end %>
 		</tbody></table>
@@ -95,5 +97,16 @@
 				window.alert("Para agregar un nuevo receptor es necesario proporcionar todos los datos solicitados.");
 			}
 		});
+
+		$('.receiver-edit').on('click', function(event){
+			event.preventDefault();
+			alert($(this).attr('receiver_id'));
+		});
+
+		$('.receiver-delete').on('click', function(event){
+			event.preventDefault();
+			alert($(this).attr('receiver_id'));
+		});
+
 	});
 </script>
