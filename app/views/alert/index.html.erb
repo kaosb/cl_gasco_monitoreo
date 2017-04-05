@@ -53,7 +53,15 @@
 					<% if receiver.platform_email %><i class="glyphicon glyphicon-envelope"></i><% end %>
 					<% if receiver.platform_mobile %><i class="glyphicon glyphicon-phone"></i><% end %>
 				</td>
-				<td style="text-align: center;"><i class="fa fa-fw fa-pencil receiver-edit" style="cursor: pointer;" receiver_id="<%=receiver.id%>"></i> / <i class="fa fa-fw fa-trash receiver-delete" style="cursor: pointer;" receiver_id="<%=receiver.id%>"></i></td>
+				<td style="text-align: center;">
+				<a style="text-decoration: none;" href="/receiver/edit/<%=receiver.id%>">
+					<i class="fa fa-fw fa-pencil receiver-edit"></i>
+				</a>
+				 / 
+				<a style="text-decoration: none;" href="#">
+					<i class="fa fa-fw fa-trash receiver-delete" style="cursor: pointer;" receiver_id="<%=receiver.id%>"></i>
+				</a>
+				</td>
 			</tr>
 			<% end %>
 		</tbody></table>
@@ -98,14 +106,26 @@
 			}
 		});
 
-		$('.receiver-edit').on('click', function(event){
-			event.preventDefault();
-			alert($(this).attr('receiver_id'));
-		});
+		// $('.receiver-edit').on('click', function(event){
+		// 	event.preventDefault();
+		// 	alert($(this).attr('receiver_id'));
+		// });
 
 		$('.receiver-delete').on('click', function(event){
 			event.preventDefault();
-			alert($(this).attr('receiver_id'));
+			var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+			var receiver_id = $(this).attr('receiver_id');
+			// Llamo al endpoint.
+			$.ajax({
+				url: "/delete_alert_receiver" + "?authenticity_token=" + AUTH_TOKEN,
+				method: "POST",
+				data: { receiver_id : receiver_id},
+				dataType: "json",
+				success: function(result){
+					window.alert("El receptor se elimino de forma exitosa.");
+					location.reload();
+				}
+			});
 		});
 
 	});

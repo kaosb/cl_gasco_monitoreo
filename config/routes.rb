@@ -13,11 +13,16 @@ Rails.application.routes.draw do
 		get '/index' => 'alert#index'
 	end
 
+	scope '/receiver' do
+		get '/edit/:id_alert_receiver' => 'alert#edit_alert_receiver'
+	end
+
 	get 'test/msj' => 'services#testmsj'
 	get 'test/service/:id' => 'services#testservice'
 	get 'test/all' => 'services#testall'
 
 	# AJAX
 	post 'add_alert_receiver' => 'alert#add_alert_receiver'
+	post 'delete_alert_receiver' => 'alert#delete_alert_receiver'
 
 end

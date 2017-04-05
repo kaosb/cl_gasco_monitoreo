@@ -17,4 +17,16 @@ class AlertController < ApplicationController
 		end
 	end
 
+	def delete_alert_receiver
+		if !params[:receiver_id].nil?
+			receiver = AlertReceiver.delete(params[:receiver_id])
+			render :json => { :status => true, :message => "El receptor fue eliminado.", :receiver => receiver }, :callback => params[:callback], :status => 200
+		else
+			render :json => { :status => false, :message => "Parmetros insuficientes." }, :callback => params[:callback], :status => 200
+		end
+	end
+
+	def edit_alert_receiver
+	end
+
 end
