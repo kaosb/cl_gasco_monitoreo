@@ -27,6 +27,7 @@ class AlertController < ApplicationController
 	end
 
 	def edit_alert_receiver
+		@receiver = AlertReceiver.find_by_id(params[:id])
 	end
 
 end

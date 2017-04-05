@@ -62,6 +62,7 @@ class Service < ApplicationRecord
 	def self.notify(action, response)
 		service = self.find(action.service_id)
 		receivers = AlertReceiver.where(status: true)
+
 		destinatarios = Array.new
 		receivers.each do |receiver|
 			destinatarios << {
@@ -82,7 +83,7 @@ class Service < ApplicationRecord
 				<div>
 					<h3>La respuesta recibida desde el servicio fue:</h3>
 					<p>
-					<code>
+					<pre>
 					#{response['Set-Cookie']}
 					<br/>
 					#{response.get_fields('set-cookie')}
@@ -99,13 +100,13 @@ class Service < ApplicationRecord
 					name: #{response.class.name}
 					Body:
 					#{response.body.force_encoding("UTF-8")}
-					</code>
+					</pre>
 					</p>
 					<h3>El mensaje enviado al servicio fue:</h3>
 					<p>
-					<code>
+					<pre>
 					#{action.xml_body.force_encoding("UTF-8")}
-					</code>
+					</pre>
 					</p>
 				</div>
 			</body>
