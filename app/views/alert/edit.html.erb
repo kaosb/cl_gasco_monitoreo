@@ -1,6 +1,6 @@
 <div class="box box-primary">
 	<div class="box-header with-border">
-		<h3 class="box-title">Crear nuevo receptor</h3>
+		<h3 class="box-title">Editar receptor</h3>
 	</div>
 	<div class="box-body">
 		<div class="box-body">
@@ -12,20 +12,46 @@
 				<label for="InputName">Nombre</label>
 				<input type="text" class="form-control" id="name" name="name" placeholder="Agegar nombre" value="<%=@receiver.name%>">
 			</div>
-			<div class="checkbox">
+			<input type="hidden" id="receiverid" name="receiverid" value="<%=@receiver.id%>">
+			<!-- <div class="checkbox">
 				<label>
 					<input name="alert" value="email" type="checkbox" checked="checked"> Alertas por email
 				</label>
-			<!--<br/>
+				<br/>
 				<label>
 					<input name="alert" value="push" type="checkbox" checked="checked"> Alertas push
-				</label> -->
-			</div>
+				</label>
+			</div> -->
 		</div>
 		<div class="box-footer">
-			<!-- <button id="agregar" type="submit" name="submit" class="btn btn-primary">Agregar</button> -->
+			<button id="guardar" type="submit" name="submit" class="btn btn-primary">Guardar</button>
 		</div>
 	</div>
 	<div class="box-footer">
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#guardar').on('click', function(event){
+			// Prevengo e comportamiento por defecto del submit.
+			event.preventDefault();
+			// Obtengo los valores de los campos.
+			var name = $("input[name='name']").val();
+			var email = $("input[name='email']").val();
+			var receiverid = $('#receiverid').val();
+			var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+			// Llamo al endpoint.
+			$.ajax({
+				url: "/update_alert_receiver" + "?authenticity_token=" + AUTH_TOKEN,
+				method: "POST",
+				data: { id : receiverid, name : name, email : email },
+				dataType: "json",
+				success: function(result){
+					window.alert("El receptor se creo de forma exitosa.");
+					location.reload();
+				}
+			});
+
+		});
+	});
+</script>	

@@ -30,4 +30,16 @@ class AlertController < ApplicationController
 		@receiver = AlertReceiver.find_by_id(params[:id])
 	end
 
+	def update_alert_receiver
+		if !params[:id].nil? && !params[:name].nil? && !params[:email].nil?
+			receiver = AlertReceiver.find_by_id(params[:id])
+			receiver.name = params[:name]
+			receiver.email = params[:email]
+			receiver.save
+			render :json => { :status => true, :message => "El receptor fue modificado.", :receiver => receiver }, :callback => params[:callback], :status => 200
+		else
+			render :json => { :status => false, :message => "Parmetros insuficientes." }, :callback => params[:callback], :status => 200
+		end
+	end
+
 end
