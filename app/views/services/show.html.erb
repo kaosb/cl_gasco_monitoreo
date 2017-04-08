@@ -1,16 +1,32 @@
-<div class="box">
-	<% if @service.present? %>
-	<div class="box-header with-border">
-		<h3 class="box-title"><%=@service.name%></h3>
-	</div>
-	<%@service.actions.each do |action|%>
-		<div class="box-body">
-			<h4 class="box-title"><%=action.name%></h4>
-			<%= pie_chart action.logs.group(:response_code).count %>
-			<%#= line_chart action.logs.group_by_hour(:created_at).group(:response_time).count, {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+<% if @service.present? %>
+<div class="row">
+	<div class="col-md-6">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Servicio <b><%=@service.name%></b></h3>
+			</div>
+			<div class="box-body">
+				<p>
+					La informacion representada en los graficos, corresponde a los códigos de estado HTTP que acompañaron las respuestas recibidas desde el servicio y sus respectivo metodos, generalmente si todo va bien la respuesta debiera estar en el rango de los <b>2xx</b>, en el caso de que la respuesta no corresponda a este segmento se gatilla una alerta desde el sistema que representa un incidente y se despliega en el grafico con el codigo respectivo.<br/>
+					Para conocer mas sobre respuestas HTTP puedes <a href="https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP#2xx" target="_blank">VER AQUI.</a>
+				</p>
+			</div>
 		</div>
-	<% end %>
-	<div class="box-footer">
 	</div>
-	<% end %>
 </div>
+<dir class="row">
+	<%@service.actions.each do |action|%>
+			<div class="col-md-4">
+				<div class="box box-default">
+					<div class="box-header with-border">
+						<h3 class="box-title"><%=action.name%></h3>
+					</div>
+					<div class="box-body">
+						<%= pie_chart action.logs.where('created_at > ?', 24.hours.ago).group(:response_code).count, height: "202px" %>
+					</div>
+				</div>
+			</div>
+	<% end %>
+</dir>
+<% end %>
