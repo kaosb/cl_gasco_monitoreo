@@ -4,6 +4,7 @@ default: &default
   timeout: 15000
   encoding: utf8
   collation: utf8_bin
+  reconnect: true
 
 development:
   <<: *default
