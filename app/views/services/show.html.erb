@@ -1,6 +1,6 @@
 <% if @service.present? %>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<div class="box box-default">
 			<div class="box-header with-border">
 				<i class="fa fa-bullhorn"></i>
@@ -15,6 +15,17 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div style="margin-left: 60px;font-size: 120%;">
+		Ver >>
+		&nbsp;<a href="?stretch=24h">24 horas</a>
+		&nbsp;|&nbsp;<a href="?stretch=week">7 dias</a>
+		&nbsp;|&nbsp;<a href="?stretch=month">1 mes</a>
+		&nbsp;|&nbsp;<a href="?stretch=3month">3 meses</a>
+		&nbsp;|&nbsp;<a href="?stretch=6month">6 meses</a>
+		&nbsp;|&nbsp;<a href="?stretch=6month">1 año</a>
+	</div>
+</div>
 <dir class="row">
 	<%@service.actions.each do |action|%>
 			<div class="col-md-4">
@@ -23,7 +34,28 @@
 						<h3 class="box-title"><%=action.name%></h3>
 					</div>
 					<div class="box-body">
-						<%= pie_chart action.logs.where('created_at > ?', 24.hours.ago).group(:response_code).count, height: "202px" %>
+						<% if params[:stretch] == '24h' %>
+							<!-- Ultimas 24 Horas -->
+							<%= pie_chart action.logs.where('created_at > ?', 24.hours.ago).group(:response_code).count, height: "202px" %>
+						<% elsif params[:stretch] == 'week' %>
+							<!-- Ultima semana -->
+							<%= pie_chart action.logs.where('created_at > ?', 7.days.ago).group(:response_code).count, height: "202px" %>
+						<% elsif params[:stretch] == 'month' %>
+							<!-- Ultimo mes -->
+							<%= pie_chart action.logs.where('created_at > ?', 1.month.ago).group(:response_code).count, height: "202px" %>
+						<% elsif params[:stretch] == '3month' %>
+							<!-- Ultimos 3 meses -->
+							<%= pie_chart action.logs.where('created_at > ?', 3.months.ago).group(:response_code).count, height: "202px" %>
+						<% elsif params[:stretch] == '6month' %>
+							<!-- Ultimos 6 meses -->
+							<%= pie_chart action.logs.where('created_at > ?', 6.months.ago).group(:response_code).count, height: "202px" %>
+						<% elsif params[:stretch] == 'year' %>
+							<!-- Ultimo año -->
+							<%= pie_chart action.logs.where('created_at > ?', 1.year.ago).group(:response_code).count, height: "202px" %>
+						<% else %>
+							<!-- Ultimas 24 Horas -->
+							<%= pie_chart action.logs.where('created_at > ?', 24.hours.ago).group(:response_code).count, height: "202px" %>
+						<% end %>
 					</div>
 				</div>
 			</div>
