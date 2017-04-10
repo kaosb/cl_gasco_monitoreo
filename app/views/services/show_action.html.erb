@@ -1,10 +1,33 @@
-<div class="box">
-	<div class="box-header with-border">
-		<h3 class="box-title"><%=@action.name%></h3>
+<div class="row">
+	<div class="col-md-6">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<h3 class="box-title"><%=@action.name%></h3>
+			</div>
+		</div>
 	</div>
-	<div class="box-body">
-		<%= line_chart @log.where('created_at > ?', 6.hours.ago).group_by_hour(:created_at).maximum(:response_time), {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Tipo de respuestas.</h3>
+				<div class="box-body">
+					<%= pie_chart @log.where('created_at > ?', 6.hours.ago).group(:response_code).count %>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="box-footer">
+	<div class="col-md-6">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Tiempo de respuesta.</h3>
+				<div class="box-body">
+					<%= line_chart @log.where('created_at > ?', 6.hours.ago).group_by_hour(:created_at).maximum(:response_time), {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
