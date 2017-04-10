@@ -11,8 +11,28 @@ class ServicesController < ApplicationController
 	end
 
 	def dashboard
+		@services = Service.where(status: true)
+		@actions = Action.where(status: true)
+		@logs_count = Log.all
+		@alertreceivers = AlertReceiver.where(status: true)
 		date = DateTime.now
-		@logs = Log.where(created_at: date.beginning_of_day..date.end_of_day)
+		# @logs = Log.where(created_at: date.beginning_of_day..date.end_of_day)
+		if params[:stretch] == '24h'
+			@logs = Log.where('created_at > ?', 24.hours.ago)
+		elsif params[:stretch] == 'week'
+			@logs = Log.where('created_at > ?', 7.days.ago)
+		elsif params[:stretch] == 'month'
+			@logs = Log.where('created_at > ?', 1.month.ago)
+		elsif params[:stretch] == '3month'
+			@logs = Log.where('created_at > ?', 3.months.ago)
+		elsif params[:stretch] == '6month'
+			@logs = Log.where('created_at > ?', 6.months.ago)
+		elsif params[:stretch] == 'year'
+			@logs = Log.where('created_at > ?', 1.year.ago)
+		else
+			@logs = Log.where('created_at > ?', 24.hours.ago)
+		end
+			
 	end
 
 	def testmsj

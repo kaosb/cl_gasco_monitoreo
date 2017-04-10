@@ -1,11 +1,170 @@
-<div class="box">
-	<div class="box-header with-border">
-		<h3 class="box-title">Panorama de servicios</h3>
+<div class="row">
+	<div class="col-md-12">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Panorama de servicios</b></h3>
+			</div>
+			<div class="box-body">
+				<p>
+					La informacion representada en los graficos, corresponde a los códigos de estado HTTP que acompañaron las respuestas recibidas desde el servicio y sus respectivo metodos, generalmente si todo va bien la respuesta debiera estar en el rango de los <b>2xx</b>, en el caso de que la respuesta no corresponda a este segmento se gatilla una alerta desde el sistema que representa un incidente y se despliega en el grafico con el codigo respectivo.<br/>
+					Para conocer mas sobre respuestas HTTP puedes <a href="https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP#2xx" target="_blank">VER AQUI.</a>
+				</p>
+			</div>
+		</div>
 	</div>
-	<div class="box-body">
-			<%= pie_chart @logs.group(:response_code).count %>
-			<%= line_chart @logs.group_by_hour(:created_at).group(:action_id).maximum(:response_time), {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+
+	<!-- Cantidad de servicios -->
+	<div class="col-md-3">
+		<div class="info-box">
+			<span class="info-box-icon bg-aqua"><i class="fa fa-folder-open"></i></span>
+
+			<div class="info-box-content">
+				<span class="info-box-text">Servicios</span>
+				<span class="info-box-number"><%=@services.count%></span>
+			</div>
+		</div>
 	</div>
-	<div class="box-footer">
+	<!-- Cantidad de metodos -->
+	<div class="col-md-3">
+		<div class="info-box">
+			<span class="info-box-icon bg-aqua"><i class="fa fa-bullseye"></i></span>
+
+			<div class="info-box-content">
+				<span class="info-box-text">Metodos</span>
+				<span class="info-box-number"><%=@actions.count%></span>
+			</div>
+		</div>
 	</div>
+	<!-- Cantidad de llamadas -->
+	<div class="col-md-3">
+		<div class="info-box">
+			<span class="info-box-icon bg-aqua"><i class="fa fa-cog"></i></span>
+
+			<div class="info-box-content">
+				<span class="info-box-text">Llamadas</span>
+				<span class="info-box-number"><%=@logs_count.count%></span>
+			</div>
+		</div>
+	</div>
+	<!-- Cantidad de personas que reciben alertas -->
+	<div class="col-md-3">
+		<div class="info-box">
+			<span class="info-box-icon bg-aqua"><i class="fa fa-group"></i></span>
+
+			<div class="info-box-content">
+				<span class="info-box-text">Colaboradores</span>
+				<span class="info-box-number"><%=@alertreceivers.count%></span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Botonera tramo -->
+	<div class="col-md-12">
+		<div class="box box-default">
+			<div class="box-body">
+				Ver >>
+				&nbsp;<a href="?stretch=24h">24 horas</a>
+				&nbsp;|&nbsp;<a href="?stretch=week">7 dias</a>
+				&nbsp;|&nbsp;<a href="?stretch=month">1 mes</a>
+				&nbsp;|&nbsp;<a href="?stretch=3month">3 meses</a>
+				&nbsp;|&nbsp;<a href="?stretch=6month">6 meses</a>
+				&nbsp;|&nbsp;<a href="?stretch=6month">1 año</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Erroneas en el tramo -->
+	<div class="col-md-6">
+		<div class="info-box bg-green">
+			<span class="info-box-icon"><i class="fa fa-check-circle"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Correctas</span>
+				<span class="info-box-number"><%=@logs.where('response_code = ?', '200').count%></span>
+<!-- 				<span class="progress-description">
+					50% Increase in 30 Days
+				</span> -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Correctas en el tramo -->
+	<div class="col-md-6">
+		<div class="info-box bg-red">
+			<span class="info-box-icon"><i class="fa fa-ban"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">Erroneas</span>
+				<span class="info-box-number"><%=@logs.where('response_code = ?', '500').count%></span>
+<!-- 				<span class="progress-description">
+					50% Increase in 30 Days
+				</span> -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Actividad relevante -->
+	<div class="col-md-6">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Actividad relevante</b></h3>
+			</div>
+			<div class="box-body">
+				<div class="table-responsive">
+					<table class="table no-margin">
+						<thead>
+							<tr>
+								<th>Servicio</th>
+								<th>Metodo</th>
+								<th>Codigo</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @logs.where('response_code = ?', '500').group(:action_id).order(created_at: :desc).limit(7).each do |log| %>
+							<% action = get_action(log.action_id)%>
+							<tr>
+								<td><a href="/services/<%= action.service_id %>"><%= get_service_name(action.service_id)%></a></td>
+								<td><a href="/services/action/<%= action.id %>"><%= action.name%></a></td>
+								<td><%=log.response_code%></td>
+								<% if check_incident_status(action.id) %>
+									<td><span class="label label-success">superado</span></td>
+								<% else %>
+									<td><span class="label label-danger">en progreso</span></td>
+								<% end %>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Todos los servicios -->
+	<div class="col-md-6">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Todos los servicios</b></h3>
+			</div>
+			<div class="box-body">
+				<%= pie_chart @logs.group(:response_code).count %>
+			</div>
+		</div>
+	</div>
+
+	<!-- Grafico -->
+<!-- 	<div class="col-md-12">
+		<div class="box box-default">
+			<div class="box-header with-border">
+				<i class="fa fa-bullhorn"></i>
+				<h3 class="box-title">Todos los servicios</b></h3>
+			</div>
+			<div class="box-body">
+				<%#= line_chart @logs.group_by_hour(:created_at).group(:action_id).maximum(:response_time), {library: {hAxis: {title: "Hora"}, vAxis: {title: "Tiempo respuesta"}}} %>
+			</div>
+		</div>
+	</div> -->
+
 </div>
