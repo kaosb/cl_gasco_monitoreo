@@ -121,7 +121,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% @logs.where('response_code = ?', '500').order(created_at: :desc).group(:action_id).limit(7).each do |log| %>
+							<% @logs.where('response_code = ?', '500').order(created_at: :desc).limit(10).each do |log| %>
 							<% action = get_action(log.action_id)%>
 							<tr>
 								<td><a href="/services/<%= action.service_id %>"><%= get_service_name(action.service_id)%></a></td>
