@@ -62,7 +62,6 @@ class Service < ApplicationRecord
 	def self.notify(action, response)
 		service = self.find(action.service_id)
 		receivers = AlertReceiver.where(status: true)
-
 		destinatarios = Array.new
 		receivers.each do |receiver|
 			destinatarios << {
@@ -108,7 +107,7 @@ class Service < ApplicationRecord
 					<p>
 					<code>
 					<pre>
-					#{action.xml_body.force_encoding("UTF-8")}
+					#{action.xml_body.gsub('<', '&lt;').gsub('>', '&gt;').force_encoding("UTF-8")}
 					</pre>
 					</code>
 					</p>
