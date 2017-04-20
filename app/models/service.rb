@@ -82,26 +82,26 @@ class Service < ApplicationRecord
 				<div>
 					<h3>La respuesta recibida desde el servicio fue:</h3>
 					<code>
-					#{response['Set-Cookie']}
+					#{response['Set-Cookie'].strip}
 					<br/>
-					#{response.get_fields('set-cookie')}
+					#{response.get_fields('set-cookie').strip}
 					<br/> 
-					#{response.to_hash['set-cookie']}
+					#{response.to_hash['set-cookie'].strip}
 					<br/>
-					status code: #{response.code}
+					status code: #{response.code.strip}
 					<br/>
 					headers: #{response.to_hash.inspect}
 					<br/>
-					message: #{response.message}
+					message: #{response.message.strip}
 					<br/>
-					name: #{response.class.name}
+					name: #{response.class.name.strip}
 					<br/>
-					body: #{response.body.force_encoding("UTF-8")}
+					body: #{response.body.force_encoding("UTF-8").strip}
 					</code>
 					<h3>El mensaje enviado al servicio fue:</h3>
 					<br/>
 					<code>
-					#{action.xml_body.gsub('<', '&lt;').gsub('>', '&gt;').force_encoding("UTF-8")}
+					#{action.xml_body.gsub('<', '&lt;').gsub('>', '&gt;').force_encoding("UTF-8").strip}
 					</code>
 				</div>
 			</body>
