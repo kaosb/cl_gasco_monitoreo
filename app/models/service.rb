@@ -81,36 +81,28 @@ class Service < ApplicationRecord
 				</div>
 				<div>
 					<h3>La respuesta recibida desde el servicio fue:</h3>
-					<p>
 					<code>
-					<pre>
 					#{response['Set-Cookie']}
 					<br/>
 					#{response.get_fields('set-cookie')}
-					<br/>
+					<br/> 
 					#{response.to_hash['set-cookie']}
 					<br/>
-					Headers: #{response.to_hash.inspect}
+					status code: #{response.code}
 					<br/>
-					Status:
-					<br/>
-					code: #{response.code}
+					headers: #{response.to_hash.inspect}
 					<br/>
 					message: #{response.message}
+					<br/>
 					name: #{response.class.name}
-					Body:
-					#{response.body.force_encoding("UTF-8")}
-					</pre>
+					<br/>
+					body: #{response.body.force_encoding("UTF-8")}
 					</code>
-					</p>
 					<h3>El mensaje enviado al servicio fue:</h3>
-					<p>
+					<br/>
 					<code>
-					<pre>
 					#{action.xml_body.gsub('<', '&lt;').gsub('>', '&gt;').force_encoding("UTF-8")}
-					</pre>
 					</code>
-					</p>
 				</div>
 			</body>
 		</html>
