@@ -53,7 +53,7 @@ class ServicesController < ApplicationController
 
 	def recent_activity
 		logs = Log.where('created_at > ?', 24.hours.ago).where('response_code = ?', '500').order(created_at: :desc).limit(10)
-		render :json => { :status => true, :activity => log }, :status => 200
+		render :json => { :status => true, :activity => logs }, :status => 200
 	end
 
 end
