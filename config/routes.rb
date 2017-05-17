@@ -26,5 +26,6 @@ Rails.application.routes.draw do
 	post 'update_alert_receiver' => 'alert#update_alert_receiver'
 	post 'delete_alert_receiver' => 'alert#delete_alert_receiver'
 	get  'get_recent_activity' => 'services#recent_activity'
+	get  'test_send_gmail' => 'services#test_send_gmail'
 
 end

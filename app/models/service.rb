@@ -107,7 +107,8 @@ class Service < ApplicationRecord
 			</body>
 		</html>
 		"
-		self.send_email("Alerta monitoreo", destinatarios, 'Para ver el correo de modo correcto es necesario verlo como HTML.', body)
+		# self.send_email("Alerta monitoreo", destinatarios, 'Para ver el correo de modo correcto es necesario verlo como HTML.', body)
+		self.send_email_gmail("Alerta monitoreo", destinatarios, 'Para ver el correo de modo correcto es necesario verlo como HTML.', body)
 	end
 
 	def self.send_email(subject, to, text, html)
@@ -124,6 +125,18 @@ class Service < ApplicationRecord
 		}
 		sending = m.messages.send message  
 		return sending
+	end
+
+	def self.send_email_gmail(subject, to, text, html)
+		require 'gmail_sender'
+		g = GmailSender.new("gasco.monitoreo", "gasco2017+-")
+		result = g.send(
+			:to => to,
+			:subject => subject,
+			:content => html,
+			:content_type => 'text/html'
+			)
+		return result
 	end
 
 	def self.send_push

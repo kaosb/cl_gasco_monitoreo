@@ -15,8 +15,6 @@ class ServicesController < ApplicationController
 		@actions = Action.where(status: true)
 		@logs_count = Log.all
 		@alertreceivers = AlertReceiver.where(status: true)
-		date = DateTime.now
-		# @logs = Log.where(created_at: date.beginning_of_day..date.end_of_day)
 		if params[:stretch] == '24h'
 			@logs = Log.where('created_at > ?', 24.hours.ago)
 		elsif params[:stretch] == 'week'
@@ -54,6 +52,11 @@ class ServicesController < ApplicationController
 	def recent_activity
 		logs = Log.where('created_at > ?', 24.hours.ago).where('response_code = ?', '500').order(created_at: :desc).limit(10)
 		render :json => { :status => true, :activity => logs }, :status => 200
+	end
+
+	def test_send_gmail
+		Service.send_email_gmail("Alerta monitoreo test gmail", ['felipe@coddea.com'], 'Para ver el correo de modo correcto es necesario verlo como HTML.', '<h1>Prueba</h1>')
+		render :json => { :status => true }, :status => 200
 	end
 
 end

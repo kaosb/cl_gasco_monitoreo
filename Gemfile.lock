@@ -54,18 +54,26 @@ GEM
       tzinfo (~> 1.1)
     arel (7.1.4)
     bcrypt (3.1.11)
+    bcrypt (3.1.11-java)
+    bcrypt (3.1.11-x64-mingw32)
+    bcrypt (3.1.11-x86-mingw32)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
     chartkick (2.2.3)
     chronic (0.10.2)
     concurrent-ruby (1.0.5)
+    concurrent-ruby (1.0.5-java)
     erubis (2.7.0)
     excon (0.55.0)
     execjs (2.7.0)
     ffi (1.9.18)
+    ffi (1.9.18-java)
+    ffi (1.9.18-x64-mingw32)
+    ffi (1.9.18-x86-mingw32)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gmail_sender (1.1.2)
     groupdate (2.1.1)
       activerecord (>= 3.0.0)
     i18n (0.8.1)
@@ -77,6 +85,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.6)
+    json (1.8.6-java)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -95,11 +104,21 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     mysql2 (0.4.5)
+    mysql2 (0.4.5-x64-mingw32)
+    mysql2 (0.4.5-x86-mingw32)
+    mysql2 (0.4.5-x86-mswin32-60)
     nio4r (2.0.0)
+    nio4r (2.0.0-java)
     nokogiri (1.7.1)
+      mini_portile2 (~> 2.1.0)
+    nokogiri (1.7.1-java)
+    nokogiri (1.7.1-x64-mingw32)
+      mini_portile2 (~> 2.1.0)
+    nokogiri (1.7.1-x86-mingw32)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     puma (3.8.2)
+    puma (3.8.2-java)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -146,11 +165,14 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.6)
+    thread_safe (0.3.6-java)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     uglifier (3.1.13)
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
@@ -162,18 +184,25 @@ GEM
       railties (>= 5.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
+    websocket-driver (0.6.5-java)
+      websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.7)
       chronic (>= 0.6.3)
 
 PLATFORMS
+  java
   ruby
+  x64-mingw32
+  x86-mingw32
+  x86-mswin32
 
 DEPENDENCIES
   active_median (~> 0.1.0)
   byebug
   chartkick
   devise!
+  gmail_sender
   groupdate (~> 2.1.1)
   jbuilder (~> 2.5)
   jquery-rails
