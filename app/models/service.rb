@@ -130,12 +130,14 @@ class Service < ApplicationRecord
 	def self.send_email_gmail(subject, to, text, html)
 		require 'gmail_sender'
 		g = GmailSender.new("gasco.monitoreo", "gasco2017+-")
-		result = g.send(
-			:to => to,
-			:subject => subject,
-			:content => html,
-			:content_type => 'text/html'
-			)
+		to.each do |recipe|
+			result = g.send(
+				:to => recipe.email,
+				:subject => subject,
+				:content => html,
+				:content_type => 'text/html'
+				)
+		end
 		return result
 	end
 
