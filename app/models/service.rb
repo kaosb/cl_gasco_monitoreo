@@ -64,10 +64,11 @@ class Service < ApplicationRecord
 		receivers = AlertReceiver.where(status: true)
 		destinatarios = Array.new
 		receivers.each do |receiver|
-			destinatarios << {
-				:name => receiver.name,
-				:email => receiver.email
-			}
+			# destinatarios << {
+			# 	:name => receiver.name,
+			# 	:email => receiver.email
+			# }
+			destinatarios << receiver.email
 		end
 		body = "
 		<html>
@@ -130,14 +131,12 @@ class Service < ApplicationRecord
 	def self.send_email_gmail(subject, to, text, html)
 		require 'gmail_sender'
 		g = GmailSender.new("gasco.monitoreo", "gasco2017+-")
-		to.each do |recipe|
-			result = g.send(
-				:to => recipe[:email],
-				:subject => subject,
-				:content => html,
-				:content_type => 'text/html'
-				)
-		end
+		result = g.send(
+			:to => to,
+			:subject => subject,
+			:content => html,
+			:content_type => 'text/html'
+			)
 		return result
 	end
 
