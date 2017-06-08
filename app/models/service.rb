@@ -132,7 +132,7 @@ class Service < ApplicationRecord
 		g = GmailSender.new("gasco.monitoreo", "gasco2017+-")
 		to.each do |recipe|
 			result = g.send(
-				:to => recipe.email,
+				:to => recipe[:email],
 				:subject => subject,
 				:content => html,
 				:content_type => 'text/html'
