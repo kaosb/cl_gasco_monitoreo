@@ -35,7 +35,6 @@ class Service < ApplicationRecord
 				else
 					case response
 					when Net::HTTPOK
-						# temp = { code: response.code, body: response.body }
 						temp = { code: response.code, body: "Respuesta satisfactoria." }
 					when Net::HTTPClientError
 						temp = { code: response.code, body: "Error en el cliente." }
